@@ -32,7 +32,18 @@ def filter_entry_level_jobs(jobs):
         "intern",
         "associate",
         "trainee",
-        "graduate"
+        "graduate",
+        "developer",
+        "engineer",
+        "devops",
+        "sre",
+        "cloud",
+        "backend",
+        "frontend",
+        "full stack",
+        "fullstack",
+        "web developer",
+        "software"
     ]
 
     filtered = []
@@ -61,11 +72,26 @@ def run():
 
     entry_level_jobs = filter_entry_level_jobs(jobs)
 
-    if not entry_level_jobs:
-        print("No entry level jobs found today.")
-        return
-
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    if not entry_level_jobs:
+        print("No matching jobs found today, but sending notification email...")
+        subject = f"Job Alert - No Matches Found - {today}"
+        body = f"""Job Alert Bot Report - {today}
+
+The bot ran successfully but found no jobs matching your criteria today.
+
+Total jobs scanned: {len(jobs)}
+Jobs matching keywords: 0
+
+Keywords searched: junior, entry, intern, associate, trainee, graduate, developer, 
+engineer, devops, sre, cloud, backend, frontend, full stack, web developer, software
+
+The bot will continue checking tomorrow.
+"""
+        send_email(subject, body)
+        print("Notification email sent.")
+        return
 
     if is_monday():
         print("Generating weekly report...")

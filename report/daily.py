@@ -2,11 +2,11 @@ def generate_daily_report(jobs, date):
     subject = f"Daily Job Alert - {date}"
 
     if not jobs:
-        body = "No entry level IT/DevOps jobs were found today."
+        body = "No IT/DevOps jobs matching your criteria were found today."
         return subject, body
 
     body = []
-    body.append(f"Entry Level IT & DevOps Jobs for {date}")
+    body.append(f"IT & DevOps Jobs for {date}")
     body.append("=" * 50)
     body.append("")
 

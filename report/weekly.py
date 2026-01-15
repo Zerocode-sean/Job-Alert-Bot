@@ -7,7 +7,7 @@ def generate_weekly_report(jobs):
     subject = f"Weekly Job Report - {today}"
 
     if not jobs:
-        body = "No entry level IT/DevOps jobs were found during the past week."
+        body = "No IT/DevOps jobs matching your criteria were found during the past week."
         return subject, body
 
     total_jobs = len(jobs)
