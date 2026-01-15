@@ -4,8 +4,13 @@ import requests
 def get_remotive_jobs() -> list[dict[str, str]]:
     url = "https://remotive.io/api/remote-jobs"
 
-    response = requests.get(url)
-    data = response.json()
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+    except Exception as e:
+        print(f"Warning: Could not fetch Remotive jobs: {e}")
+        return []
 
     jobs: list[dict[str, str]] = []
 
