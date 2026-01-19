@@ -1,7 +1,22 @@
 import os
 import smtplib
+import re
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+
+
+def html_to_plain_text(html: str) -> str:
+    """Convert HTML to plain text fallback"""
+    # Remove HTML tags
+    text = re.sub(r'<[^>]+>', '', html)
+    # Decode HTML entities
+    text = text.replace('&nbsp;', ' ')
+    text = text.replace('&amp;', '&')
+    text = text.replace('&lt;', '<')
+    text = text.replace('&gt;', '>')
+    # Clean up excessive whitespace
+    text = re.sub(r'\n\s*\n', '\n\n', text)
+    return text.strip()
 
 
 def send_email(subject: str, body: str) -> None:
@@ -23,13 +38,26 @@ def send_email(subject: str, body: str) -> None:
     message["From"] = sender_email
     message["To"] = receiver_email
     message["Subject"] = subject
+    message["X-Priority"] = "3"
+    message["X-MSMail-Priority"] = "Normal"
 
-    # Attach both plain text and HTML versions
-    message.attach(MIMEText(body, "plain"))
+    # Check if body is HTML
+    is_html = "<html>" in body or "<!DOCTYPE" in body
     
-    # If body contains HTML tags, also attach as HTML
-    if "<html>" in body or "<div>" in body:
-        message.attach(MIMEText(body, "html"))
+    if is_html:
+        # Create plain text version for email clients that don't support HTML
+        plain_text = html_to_plain_text(body)
+        
+        # Attach plain text first (fallback)
+        part1 = MIMEText(plain_text, "plain")
+        message.attach(part1)
+        
+        # Attach HTML version (preferred)
+        part2 = MIMEText(body, "html")
+        message.attach(part2)
+    else:
+        # Just plain text
+        message.attach(MIMEText(body, "plain"))
 
     try:
         print("DEBUG: Connecting to Gmail SMTP server...")

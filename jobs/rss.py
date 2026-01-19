@@ -16,10 +16,18 @@ def get_rss_jobs():
         for entry in feed.entries:
             title = entry.get("title", "")
             link = entry.get("link", "")
-            company = entry.get("author", "Unknown")
+            
+            # Extract company and job title from the format "Company: Job Title"
+            if ":" in title:
+                parts = title.split(":", 1)
+                company = parts[0].strip()
+                job_title = parts[1].strip()
+            else:
+                company = entry.get("author", "Unknown")
+                job_title = title
 
             jobs.append({
-                "title": title,
+                "title": job_title,
                 "company": company,
                 "link": link,
                 "source": "RSS"
