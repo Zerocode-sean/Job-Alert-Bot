@@ -19,12 +19,17 @@ def send_email(subject: str, body: str) -> None:
     
     receiver_email = sender_email
 
-    message = MIMEMultipart()
+    message = MIMEMultipart("alternative")
     message["From"] = sender_email
     message["To"] = receiver_email
     message["Subject"] = subject
 
+    # Attach both plain text and HTML versions
     message.attach(MIMEText(body, "plain"))
+    
+    # If body contains HTML tags, also attach as HTML
+    if "<html>" in body or "<div>" in body:
+        message.attach(MIMEText(body, "html"))
 
     try:
         print("DEBUG: Connecting to Gmail SMTP server...")
