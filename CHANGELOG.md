@@ -5,6 +5,27 @@ All notable changes to the Job Alert Bot project will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-01-20
+
+### Added
+
+- 🌐 **Multiple RSS Job Sources** - Expanded from 2 to 9 RSS feeds
+  - WeWorkRemotely: Added 3 new categories (Back-end, Front-end, Full-stack)
+  - RemoteOK: Added 4 new feeds (Dev, DevOps, Python, JavaScript)
+  - **Result**: 329 total jobs (up from 40), 278 matching jobs (up from 35)
+- 📊 **Improved Company Extraction** - RSS parser now extracts company names from job titles
+- 🧪 **Diagnostic Tools** - Added `diagnose_email.py` for troubleshooting email delivery
+
+### Changed
+
+- 📧 **Enhanced Email Format** - Better HTML rendering with plain text fallback
+- 🏢 **Company Names** - Now properly extracted from "Company: Job Title" format
+
+### Fixed
+
+- ✅ Company names showing as "Unknown" in RSS feeds
+- ✅ HTML email rendering in Gmail and other clients
+
 ## [1.0.0] - 2026-01-19
 
 ### Added
