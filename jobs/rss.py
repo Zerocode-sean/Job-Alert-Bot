@@ -2,8 +2,18 @@ import feedparser
 
 
 RSS_FEEDS = [
+    # WeWorkRemotely
     "https://weworkremotely.com/categories/remote-devops-sysadmin-jobs.rss",
-    "https://weworkremotely.com/categories/remote-programming-jobs.rss"
+    "https://weworkremotely.com/categories/remote-programming-jobs.rss",
+    "https://weworkremotely.com/categories/remote-back-end-programming-jobs.rss",
+    "https://weworkremotely.com/categories/remote-front-end-programming-jobs.rss",
+    "https://weworkremotely.com/categories/remote-full-stack-programming-jobs.rss",
+    
+    # RemoteOK (alternative RSS source)
+    "https://remoteok.com/remote-dev-jobs.rss",
+    "https://remoteok.com/remote-devops-jobs.rss",
+    "https://remoteok.com/remote-python-jobs.rss",
+    "https://remoteok.com/remote-javascript-jobs.rss",
 ]
 
 
